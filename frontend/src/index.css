@@ -19,7 +19,7 @@
 
 @layer components {
   .btn-primary {
-    background-color: theme(colors.primary.600);
+    background-color: #db2777;
     color: white;
     font-weight: 600;
     padding: 0.75rem 1.5rem;
@@ -30,13 +30,13 @@
   }
   
   .btn-primary:hover {
-    background-color: theme(colors.primary.700);
+    background-color: #be185d;
     transform: scale(1.05);
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
   }
   
   .btn-secondary {
-    background-color: theme(colors.secondary.600);
+    background-color: #0284c7;
     color: white;
     font-weight: 600;
     padding: 0.75rem 1.5rem;
@@ -47,14 +47,14 @@
   }
   
   .btn-secondary:hover {
-    background-color: theme(colors.secondary.700);
+    background-color: #0369a1;
     transform: scale(1.05);
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
   }
   
   .btn-outline {
-    border: 2px solid theme(colors.primary.600);
-    color: theme(colors.primary.600);
+    border: 2px solid #db2777;
+    color: #db2777;
     font-weight: 600;
     padding: 0.75rem 1.5rem;
     border-radius: 0.5rem;
@@ -63,7 +63,7 @@
   }
   
   .btn-outline:hover {
-    background-color: theme(colors.primary.600);
+    background-color: #db2777;
     color: white;
     transform: scale(1.05);
   }
@@ -82,11 +82,11 @@
   }
   
   .gradient-bg {
-    background: linear-gradient(to bottom right, theme(colors.primary.500), theme(colors.secondary.500), theme(colors.accent.500));
+    background: linear-gradient(to bottom right, #ec4899, #0ea5e9, #eab308);
   }
   
   .text-gradient {
-    background: linear-gradient(to right, theme(colors.primary.600), theme(colors.secondary.600));
+    background: linear-gradient(to right, #db2777, #0284c7);
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;

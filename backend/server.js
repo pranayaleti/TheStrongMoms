@@ -5,7 +5,7 @@ const morgan = require('morgan');
 require('dotenv').config();
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 
 // Middleware
 app.use(helmet());
@@ -14,12 +14,12 @@ app.use(morgan('combined'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Routes
-app.use('/api/auth', require('./routes/auth'));
-app.use('/api/programs', require('./routes/programs'));
-app.use('/api/community', require('./routes/community'));
-app.use('/api/blog', require('./routes/blog'));
-app.use('/api/users', require('./routes/users'));
+// Routes - temporarily commented out
+// app.use('/api/auth', require('./routes/auth'));
+// app.use('/api/programs', require('./routes/programs'));
+// app.use('/api/community', require('./routes/community'));
+// app.use('/api/blog', require('./routes/blog'));
+// app.use('/api/users', require('./routes/users'));
 
 // Health check
 app.get('/api/health', (req, res) => {

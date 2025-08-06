@@ -76,15 +76,6 @@ router.get('/', (req, res) => {
   });
 });
 
-// Get program by ID
-router.get('/:id', (req, res) => {
-  const program = programs.find(p => p.id === parseInt(req.params.id));
-  if (!program) {
-    return res.status(404).json({ error: 'Program not found' });
-  }
-  res.json({ program });
-});
-
 // Get programs by category
 router.get('/category/:category', (req, res) => {
   const categoryPrograms = programs.filter(p => p.category === req.params.category);
@@ -116,6 +107,15 @@ router.post('/:id/book', (req, res) => {
       "Mark your calendar for orientation"
     ]
   });
+});
+
+// Get program by ID
+router.get('/:id', (req, res) => {
+  const program = programs.find(p => p.id === parseInt(req.params.id));
+  if (!program) {
+    return res.status(404).json({ error: 'Program not found' });
+  }
+  res.json({ program });
 });
 
 module.exports = router; 

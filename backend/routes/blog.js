@@ -126,19 +126,6 @@ router.get('/', (req, res) => {
   });
 });
 
-// Get blog post by ID
-router.get('/:id', (req, res) => {
-  const post = blogPosts.find(p => p.id === parseInt(req.params.id));
-  if (!post) {
-    return res.status(404).json({ error: 'Blog post not found' });
-  }
-  
-  // Increment views
-  post.views += 1;
-  
-  res.json({ post });
-});
-
 // Get blog categories
 router.get('/categories', (req, res) => {
   const categories = [...new Set(blogPosts.map(post => post.category))];
@@ -172,6 +159,19 @@ router.post('/:id/like', (req, res) => {
     message: "Post liked! ❤️",
     likes: post.likes
   });
+});
+
+// Get blog post by ID
+router.get('/:id', (req, res) => {
+  const post = blogPosts.find(p => p.id === parseInt(req.params.id));
+  if (!post) {
+    return res.status(404).json({ error: 'Blog post not found' });
+  }
+  
+  // Increment views
+  post.views += 1;
+  
+  res.json({ post });
 });
 
 module.exports = router; 
