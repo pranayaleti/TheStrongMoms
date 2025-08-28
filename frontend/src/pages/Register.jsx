@@ -160,10 +160,11 @@ const Register = () => {
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
-                    className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent ${
+                    className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-gray-700 placeholder-gray-400 ${
                       formErrors.name ? 'border-red-300' : 'border-gray-300'
                     }`}
                     placeholder="Your full name"
+                    required
                   />
                 </div>
                 {formErrors.name && (
@@ -182,10 +183,11 @@ const Register = () => {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent ${
+                    className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-gray-700 placeholder-gray-400 ${
                       formErrors.email ? 'border-red-300' : 'border-gray-300'
                     }`}
                     placeholder="your@email.com"
+                    required
                   />
                 </div>
                 {formErrors.email && (
@@ -204,10 +206,11 @@ const Register = () => {
                     name="password"
                     value={formData.password}
                     onChange={handleChange}
-                    className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent ${
+                    className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-gray-700 placeholder-gray-400 ${
                       formErrors.password ? 'border-red-300' : 'border-gray-300'
                     }`}
                     placeholder="Create a password"
+                    required
                   />
                 </div>
                 {formErrors.password && (
@@ -226,10 +229,11 @@ const Register = () => {
                     name="confirmPassword"
                     value={formData.confirmPassword}
                     onChange={handleChange}
-                    className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent ${
+                    className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-gray-700 placeholder-gray-400 ${
                       formErrors.confirmPassword ? 'border-red-300' : 'border-gray-300'
                     }`}
                     placeholder="Confirm your password"
+                    required
                   />
                 </div>
                 {formErrors.confirmPassword && (

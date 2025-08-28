@@ -8,10 +8,39 @@
   
   body {
     font-family: 'Inter', system-ui, sans-serif;
+    color: #374151; /* text-gray-700 as default */
   }
   
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Poppins', system-ui, sans-serif;
+  }
+
+  /* Form input styling for better contrast */
+  input, textarea, select {
+    color: #374151; /* text-gray-700 */
+  }
+  
+  input::placeholder, textarea::placeholder {
+    color: #9ca3af; /* text-gray-400 */
+  }
+  
+  input:focus, textarea:focus, select:focus {
+    color: #111827; /* text-gray-900 */
+  }
+
+  /* Ensure proper contrast for all text elements */
+  p, span, div {
+    color: inherit;
+  }
+
+  /* Ensure buttons have proper contrast */
+  button {
+    color: inherit;
+  }
+
+  /* Ensure links have proper contrast */
+  a {
+    color: inherit;
   }
 }
 
