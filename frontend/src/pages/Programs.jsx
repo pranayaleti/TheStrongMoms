@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Calendar, Clock, Users, Star, ArrowRight, Filter, Search } from 'lucide-react';
+import { Calendar, Clock, Users, Star, ArrowRight, Search } from 'lucide-react';
+import { programsAPI } from '../services/api';
 
 const Programs = () => {
   const [programs, setPrograms] = useState([]);
@@ -18,13 +19,11 @@ const Programs = () => {
   ];
 
   useEffect(() => {
-    // Simulate API call
     const fetchPrograms = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/programs');
-        const data = await response.json();
-        setPrograms(data.programs);
-        setFilteredPrograms(data.programs);
+        const response = await programsAPI.getAll();
+        setPrograms(response.data.programs || []);
+        setFilteredPrograms(response.data.programs || []);
       } catch (error) {
         // Fallback to mock data
         const mockPrograms = [
@@ -123,14 +122,8 @@ const Programs = () => {
 
   const handleBookProgram = async (programId) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/programs/${programId}/book`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      const data = await response.json();
-      alert(data.message);
+      const response = await programsAPI.book(programId);
+      alert(response.data.message);
     } catch (error) {
       alert('Booking feature coming soon! 🎉');
     }
@@ -150,18 +143,24 @@ const Programs = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-primary-600 to-secondary-600 py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <section className="hero-dark hero-auth">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
+            className="hero-auth-content"
           >
-            <h1 className="text-4xl md:text-6xl font-bold text-white font-display mb-6">
+            <img
+              src="/logo.png"
+              alt="The Strong Moms"
+              className="h-16 sm:h-20 w-auto mx-auto mb-6 object-contain"
+            />
+            <h1 className="hero-headline text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display">
               Our Programs
             </h1>
-            <p className="text-xl text-white/90 max-w-3xl mx-auto">
-              Choose the program that fits your goals and lifestyle. All programs are designed 
+            <p className="hero-text text-lg sm:text-xl max-w-2xl mx-auto">
+              Choose the program that fits your goals and lifestyle. All programs are designed
               specifically for moms who want to build strength, confidence, and community.
             </p>
           </motion.div>
@@ -283,11 +282,12 @@ const Programs = () => {
                         <span className="text-sm text-gray-500 ml-1">/ {program.duration}</span>
                       </div>
                       <button
+                        type="button"
                         onClick={() => handleBookProgram(program.id)}
-                        className="btn-primary"
+                        className="btn-primary btn-with-icon"
                       >
                         Book Now
-                        <ArrowRight className="w-4 h-4 ml-2" />
+                        <ArrowRight className="w-4 h-4 shrink-0" aria-hidden />
                       </button>
                     </div>
                   </div>
@@ -314,10 +314,10 @@ const Programs = () => {
               Schedule a free consultation to discuss your goals and find the perfect program.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/join" className="btn-primary text-lg px-8 py-4">
-                Schedule Consultation
-                <ArrowRight className="w-5 h-5 ml-2" />
-              </Link>
+<Link to="/join" className="btn-primary btn-with-icon text-lg px-8 py-4">
+              Schedule Consultation
+              <ArrowRight className="w-5 h-5 shrink-0" aria-hidden />
+            </Link>
               <Link to="/community" className="btn-outline text-lg px-8 py-4">
                 Talk to Our Moms
               </Link>

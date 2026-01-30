@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Heart, Users, TrendingUp, Star, Instagram, Facebook, Twitter, MessageCircle, ThumbsUp, Share2 } from 'lucide-react';
+import { Heart, Users, TrendingUp, Star, Instagram, MessageCircle, Share2 } from 'lucide-react';
+import { communityAPI } from '../services/api';
 
 const Community = () => {
   const [testimonials, setTestimonials] = useState([]);
@@ -10,28 +11,24 @@ const Community = () => {
   const [stats, setStats] = useState({});
 
   useEffect(() => {
-    // Simulate API calls
     const fetchCommunityData = async () => {
       try {
-        // Fetch testimonials
-        const testimonialsResponse = await fetch('http://localhost:5000/api/community/testimonials');
-        const testimonialsData = await testimonialsResponse.json();
-        setTestimonials(testimonialsData.testimonials);
+        const [
+          testimonialsResponse,
+          socialResponse,
+          challengesResponse,
+          statsResponse
+        ] = await Promise.all([
+          communityAPI.getTestimonials(),
+          communityAPI.getSocialFeed(),
+          communityAPI.getChallenges(),
+          communityAPI.getStats()
+        ]);
 
-        // Fetch social feed
-        const socialResponse = await fetch('http://localhost:5000/api/community/social-feed');
-        const socialData = await socialResponse.json();
-        setSocialFeed(socialData.posts);
-
-        // Fetch challenges
-        const challengesResponse = await fetch('http://localhost:5000/api/community/challenges');
-        const challengesData = await challengesResponse.json();
-        setChallenges(challengesData.challenges);
-
-        // Fetch stats
-        const statsResponse = await fetch('http://localhost:5000/api/community/stats');
-        const statsData = await statsResponse.json();
-        setStats(statsData);
+        setTestimonials(testimonialsResponse.data.testimonials || []);
+        setSocialFeed(socialResponse.data.posts || []);
+        setChallenges(challengesResponse.data.challenges || []);
+        setStats(statsResponse.data || {});
       } catch (error) {
         // Fallback to mock data
         setTestimonials([
@@ -119,14 +116,8 @@ const Community = () => {
 
   const handleJoinChallenge = async (challengeId) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/community/challenges/${challengeId}/join`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      const data = await response.json();
-      alert(data.message);
+      const response = await communityAPI.joinChallenge(challengeId);
+      alert(response.data.message);
     } catch (error) {
       alert('Challenge feature coming soon! 🎉');
     }
@@ -135,18 +126,24 @@ const Community = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-primary-600 to-secondary-600 py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <section className="hero-dark hero-auth">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
+            className="hero-auth-content"
           >
-            <h1 className="text-4xl md:text-6xl font-bold text-white font-display mb-6">
+            <img
+              src="/logo.png"
+              alt="The Strong Moms"
+              className="h-16 sm:h-20 w-auto mx-auto mb-6 object-contain"
+            />
+            <h1 className="hero-headline text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display">
               Our Community
             </h1>
-            <p className="text-xl text-white/90 max-w-3xl mx-auto">
-              Meet the amazing moms who are building strength, confidence, and lasting friendships. 
+            <p className="hero-text text-lg sm:text-xl max-w-2xl mx-auto">
+              Meet the amazing moms who are building strength, confidence, and lasting friendships.
               Join our supportive community of empowered women.
             </p>
           </motion.div>
@@ -408,7 +405,7 @@ const Community = () => {
       )}
 
       {/* CTA Section */}
-      <section className="py-16 bg-gradient-to-r from-primary-600 to-secondary-600">
+      <section className="py-16 hero-dark">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -416,17 +413,17 @@ const Community = () => {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-3xl font-bold text-white font-display mb-6">
+            <h2 className="hero-headline text-3xl font-bold font-display mb-6">
               Ready to Join Our Community?
             </h2>
-            <p className="text-xl text-white/90 mb-8">
+            <p className="hero-text text-xl mb-8">
               Connect with like-minded moms and start your transformation today.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/join" className="btn-secondary text-lg px-8 py-4">
+              <Link to="/join" className="btn-cta-dark text-lg px-8 py-4">
                 Join the Strong Moms
               </Link>
-              <Link to="/programs" className="btn-outline text-lg px-8 py-4 border-white text-white hover:bg-white hover:text-primary-600">
+              <Link to="/programs" className="btn-outline-hero text-lg px-8 py-4">
                 Explore Programs
               </Link>
             </div>

@@ -22,7 +22,9 @@ const programs = [
     image: "/images/crossfit-moms.jpg",
     instructor: "Coach Jessica",
     schedule: "Mon, Wed, Fri 6:00 AM & 6:00 PM",
-    maxParticipants: 12
+    maxParticipants: 12,
+    rating: 4.9,
+    reviews: 45
   },
   {
     id: 2,
@@ -43,7 +45,9 @@ const programs = [
     image: "/images/hiking-moms.jpg",
     instructor: "Trail Guide Maria",
     schedule: "Saturdays 8:00 AM",
-    maxParticipants: 20
+    maxParticipants: 20,
+    rating: 4.8,
+    reviews: 32
   },
   {
     id: 3,
@@ -64,7 +68,9 @@ const programs = [
     image: "/images/mindset-coaching.jpg",
     instructor: "Mindset Coach Amanda",
     schedule: "Tuesdays 7:00 PM (Group), Flexible (1:1)",
-    maxParticipants: 15
+    maxParticipants: 15,
+    rating: 5.0,
+    reviews: 28
   }
 ];
 

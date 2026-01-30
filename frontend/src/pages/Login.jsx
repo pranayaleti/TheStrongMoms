@@ -41,18 +41,24 @@ const Login = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Hero Section */}
-      <section className="bg-gradient-to-r from-primary-600 to-secondary-600 py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      {/* Hero Section - same high-contrast as Home hero, responsive layout */}
+      <section className="hero-dark hero-auth">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
+            className="hero-auth-content"
           >
-            <h1 className="text-4xl md:text-6xl font-bold text-white font-display mb-6">
+            <img
+              src="/logo.png"
+              alt="The Strong Moms"
+              className="h-16 sm:h-20 w-auto mx-auto mb-6 object-contain"
+            />
+            <h1 className="hero-headline text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display">
               Login
             </h1>
-            <p className="text-xl text-white/90 max-w-3xl mx-auto">
+            <p className="hero-text text-lg sm:text-xl max-w-2xl mx-auto">
               Welcome back to The Strong Moms community
             </p>
           </motion.div>
@@ -132,37 +138,40 @@ const Login = () => {
                   />
                   <span className="ml-2 text-sm text-gray-700">Remember me</span>
                 </label>
-                <a href="#" className="text-sm text-primary-600 hover:text-primary-700">
+                <Link to="/forgot-password" className="text-sm text-primary-600 hover:text-primary-700 font-medium">
                   Forgot password?
-                </a>
+                </Link>
               </div>
 
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full btn-primary text-lg py-3 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full btn-primary btn-with-icon text-lg py-3 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isLoading ? (
-                  <div className="flex items-center justify-center">
-                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+                  <>
+                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white shrink-0"></div>
                     Signing In...
-                  </div>
+                  </>
                 ) : (
                   <>
                     Sign In
-                    <ArrowRight className="w-5 h-5 ml-2" />
+                    <ArrowRight className="w-5 h-5 shrink-0" aria-hidden />
                   </>
                 )}
               </button>
             </form>
 
-            <div className="mt-8 text-center">
-              <p className="text-gray-600">
-                Don't have an account?{' '}
-                <Link to="/join" className="text-primary-600 hover:text-primary-700 font-medium">
-                  Join the Strong Moms
-                </Link>
+            <div className="mt-8 pt-6 border-t border-gray-200 text-center">
+              <p className="text-gray-600 text-sm mb-4">
+                Don't have an account?
               </p>
+              <Link
+                to="/join"
+                className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 rounded-lg border-2 border-primary-500 text-primary-600 font-semibold no-underline transition-all duration-200 hover:bg-primary-600 hover:border-primary-600 hover:text-white hover:shadow-md hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+              >
+                Join the Strong Moms
+              </Link>
             </div>
           </motion.div>
         </div>

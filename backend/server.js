@@ -1,4 +1,5 @@
 const express = require('express');
+const axios = require('axios');
 const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
@@ -37,6 +38,37 @@ app.use('/api/users', require('./routes/users'));
 // Health check
 app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', message: 'The Strong Moms API is running!' });
+});
+
+// Test Instagram connection (5 most recent posts)
+app.get('/api/test-instagram', async (req, res) => {
+  try {
+    const { INSTAGRAM_ACCESS_TOKEN, INSTAGRAM_USER_ID } = process.env;
+
+    const response = await axios.get(
+      `https://graph.facebook.com/v18.0/${INSTAGRAM_USER_ID}/media`,
+      {
+        params: {
+          fields: 'id,caption,media_type,media_url,permalink,timestamp,like_count,comments_count',
+          access_token: INSTAGRAM_ACCESS_TOKEN,
+          limit: 5
+        }
+      }
+    );
+
+    res.json({
+      success: true,
+      message: "Successfully connected to TheStrongMoms' Instagram!",
+      post_count: response.data.data.length,
+      latest_posts: response.data.data
+    });
+  } catch (error) {
+    console.error('Instagram Fetch Error:', error.response?.data || error.message);
+    res.status(500).json({
+      success: false,
+      error: error.response?.data || 'Failed to fetch Instagram data'
+    });
+  }
 });
 
 // Error handling middleware

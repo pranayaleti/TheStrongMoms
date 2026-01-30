@@ -6,7 +6,7 @@ const Dashboard = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-primary-600 to-secondary-600 py-20">
+      <section className="bg-primary-950 py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -16,7 +16,7 @@ const Dashboard = () => {
             <h1 className="text-4xl md:text-6xl font-bold text-white font-display mb-6">
               Dashboard
             </h1>
-            <p className="text-xl text-white/90 max-w-3xl mx-auto">
+            <p className="text-xl text-primary-100 max-w-3xl mx-auto">
               Track your progress, connect with your community, and achieve your goals
             </p>
           </motion.div>
@@ -59,9 +59,9 @@ const Dashboard = () => {
                   <p className="text-sm text-gray-600">Connect with other Strong Moms</p>
                 </div>
               </div>
-              <Link to="/join" className="btn-primary text-lg px-8 py-4">
+              <Link to="/join" className="btn-primary btn-with-icon text-lg px-8 py-4">
                 Join to Get Early Access
-                <ArrowRight className="w-5 h-5 ml-2" />
+                <ArrowRight className="w-5 h-5 shrink-0" aria-hidden />
               </Link>
             </div>
           </motion.div>

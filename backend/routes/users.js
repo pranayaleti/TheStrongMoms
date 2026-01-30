@@ -1,40 +1,12 @@
 const express = require('express');
 const router = express.Router();
+const authMiddleware = require('../authMiddleware');
 
-// Mock user data
-const users = [
-  {
-    id: 1,
-    name: "Sarah Johnson",
-    email: "sarah@strongmoms.com",
-    joinDate: "2024-01-15",
-    goals: ["strength", "community", "mindset"],
-    currentProgram: "CrossFit for Moms",
-    progress: {
-      workoutsCompleted: 45,
-      currentStreak: 12,
-      totalWorkouts: 67,
-      weightLifted: 25000,
-      milesHiked: 23
-    },
-    achievements: [
-      "First Pull-up",
-      "30-Day Streak",
-      "Community Leader",
-      "Mindset Master"
-    ],
-    stats: {
-      memberSince: "3 months",
-      programsCompleted: 2,
-      challengesWon: 3,
-      communityPosts: 15
-    }
-  }
-];
+router.use(authMiddleware);
 
 // Get user profile
 router.get('/profile', (req, res) => {
-  const user = users[0]; // Mock user for demo
+  const user = req.user;
   res.json({
     message: "Profile loaded! 💪",
     user
@@ -44,7 +16,11 @@ router.get('/profile', (req, res) => {
 // Update user goals
 router.put('/goals', (req, res) => {
   const { goals } = req.body;
-  const user = users[0];
+  const user = req.user;
+
+  if (!Array.isArray(goals)) {
+    return res.status(400).json({ error: 'Goals must be an array' });
+  }
   
   user.goals = goals;
   
@@ -54,9 +30,18 @@ router.put('/goals', (req, res) => {
   });
 });
 
+// Get user goals
+router.get('/goals', (req, res) => {
+  const user = req.user;
+  res.json({
+    message: "Goals loaded! 🎯",
+    goals: user.goals || []
+  });
+});
+
 // Get user progress
 router.get('/progress', (req, res) => {
-  const user = users[0];
+  const user = req.user;
   res.json({
     message: "Progress loaded! 📊",
     progress: user.progress
@@ -66,7 +51,7 @@ router.get('/progress', (req, res) => {
 // Update workout progress
 router.post('/progress/workout', (req, res) => {
   const { workoutType, duration, intensity } = req.body;
-  const user = users[0];
+  const user = req.user;
   
   user.progress.workoutsCompleted += 1;
   user.progress.currentStreak += 1;
@@ -80,7 +65,7 @@ router.post('/progress/workout', (req, res) => {
 
 // Get user achievements
 router.get('/achievements', (req, res) => {
-  const user = users[0];
+  const user = req.user;
   res.json({
     message: "Achievements loaded! 🏆",
     achievements: user.achievements
@@ -89,7 +74,7 @@ router.get('/achievements', (req, res) => {
 
 // Get user stats
 router.get('/stats', (req, res) => {
-  const user = users[0];
+  const user = req.user;
   res.json({
     message: "Stats loaded! 📈",
     stats: user.stats
@@ -98,7 +83,7 @@ router.get('/stats', (req, res) => {
 
 // Get user dashboard data
 router.get('/dashboard', (req, res) => {
-  const user = users[0];
+  const user = req.user;
   
   const dashboardData = {
     user: {
@@ -154,7 +139,11 @@ router.get('/dashboard', (req, res) => {
 // Update user profile
 router.put('/profile', (req, res) => {
   const { name, email, goals } = req.body;
-  const user = users[0];
+  const user = req.user;
+
+  if (goals && !Array.isArray(goals)) {
+    return res.status(400).json({ error: 'Goals must be an array' });
+  }
   
   if (name) user.name = name;
   if (email) user.email = email;

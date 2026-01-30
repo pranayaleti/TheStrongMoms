@@ -2,27 +2,24 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const router = express.Router();
-
-// Mock user data for MVP
-const users = [
-  {
-    id: 1,
-    email: 'demo@strongmoms.com',
-    password: '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-    name: 'Sarah Johnson',
-    role: 'member',
-    joinDate: '2024-01-15',
-    goals: ['strength', 'community', 'mindset']
-  }
-];
+const authMiddleware = require('../authMiddleware');
+const { users, findUserByEmail, createUser } = require('../dataStore');
 
 // Register
 router.post('/register', async (req, res) => {
   try {
     const { email, password, name, goals } = req.body;
+
+    if (!email || !password || !name) {
+      return res.status(400).json({ error: 'Name, email, and password are required' });
+    }
+
+    if (goals && !Array.isArray(goals)) {
+      return res.status(400).json({ error: 'Goals must be an array' });
+    }
     
     // Check if user exists
-    const existingUser = users.find(user => user.email === email);
+    const existingUser = findUserByEmail(email);
     if (existingUser) {
       return res.status(400).json({ error: 'User already exists' });
     }
@@ -32,15 +29,13 @@ router.post('/register', async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, salt);
 
     // Create new user
-    const newUser = {
+    const newUser = createUser({
       id: users.length + 1,
       email,
       password: hashedPassword,
       name,
-      role: 'member',
-      joinDate: new Date().toISOString().split('T')[0],
-      goals: goals || []
-    };
+      goals
+    });
 
     users.push(newUser);
 
@@ -71,8 +66,12 @@ router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
 
+    if (!email || !password) {
+      return res.status(400).json({ error: 'Email and password are required' });
+    }
+
     // Find user
-    const user = users.find(u => u.email === email);
+    const user = findUserByEmail(email);
     if (!user) {
       return res.status(400).json({ error: 'Invalid credentials' });
     }
@@ -105,10 +104,24 @@ router.post('/login', async (req, res) => {
   }
 });
 
+// Forgot password - request reset (placeholder: no email sent yet)
+router.post('/forgot-password', (req, res) => {
+  try {
+    const { email } = req.body;
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return res.status(400).json({ error: 'Valid email is required' });
+    }
+    // Don't reveal whether email exists; always return success
+    // TODO: send reset link when email service is configured
+    res.json({ message: 'If an account exists with this email, you will receive reset instructions.' });
+  } catch (error) {
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
 // Get profile
-router.get('/profile', (req, res) => {
-  // In a real app, you'd verify the JWT token
-  const user = users[0]; // Mock user for demo
+router.get('/profile', authMiddleware, (req, res) => {
+  const user = req.user;
   res.json({
     user: {
       id: user.id,

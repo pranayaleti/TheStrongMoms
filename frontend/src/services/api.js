@@ -42,6 +42,7 @@ api.interceptors.response.use(
 export const authAPI = {
   login: (credentials) => api.post('/auth/login', credentials),
   register: (userData) => api.post('/auth/register', userData),
+  forgotPassword: (body) => api.post('/auth/forgot-password', body),
   getProfile: () => api.get('/auth/profile'),
   logout: () => {
     localStorage.removeItem('token');
@@ -53,15 +54,16 @@ export const authAPI = {
 export const programsAPI = {
   getAll: () => api.get('/programs'),
   getById: (id) => api.get(`/programs/${id}`),
-  enroll: (programId) => api.post(`/programs/${programId}/enroll`),
+  book: (programId) => api.post(`/programs/${programId}/book`),
 };
 
 // Community API
 export const communityAPI = {
-  getPosts: () => api.get('/community/posts'),
-  createPost: (postData) => api.post('/community/posts', postData),
-  likePost: (postId) => api.post(`/community/posts/${postId}/like`),
-  comment: (postId, comment) => api.post(`/community/posts/${postId}/comments`, { comment }),
+  getTestimonials: () => api.get('/community/testimonials'),
+  getSocialFeed: () => api.get('/community/social-feed'),
+  getChallenges: () => api.get('/community/challenges'),
+  joinChallenge: (challengeId) => api.post(`/community/challenges/${challengeId}/join`),
+  getStats: () => api.get('/community/stats'),
 };
 
 // Blog API

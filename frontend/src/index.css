@@ -61,9 +61,20 @@
     transform: scale(1.05);
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
   }
+
+  /* Buttons/links with icon: keep text and arrow aligned */
+  .btn-with-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  .btn-with-icon.w-full {
+    display: flex;
+  }
   
   .btn-secondary {
-    background-color: #0284c7;
+    background-color: #7e22ce;
     color: white;
     font-weight: 600;
     padding: 0.75rem 1.5rem;
@@ -74,11 +85,47 @@
   }
   
   .btn-secondary:hover {
-    background-color: #0369a1;
+    background-color: #6b21a8;
     transform: scale(1.05);
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
   }
   
+  .btn-outline-hero {
+    border: 2px solid #ffffff;
+    color: #ffffff;
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    transition: all 0.2s;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+    background-color: transparent;
+  }
+  
+  .btn-outline-hero:hover {
+    background-color: #ffffff;
+    color: #1a0510;
+    text-shadow: none;
+  }
+
+  /* Primary CTA on dark sections: white bg + dark text for maximum readability */
+  .btn-cta-dark {
+    background-color: #ffffff;
+    color: #1a0510;
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    transition: all 0.2s;
+    border: 2px solid #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+  .btn-cta-dark:hover {
+    background-color: #fce7f3;
+    color: #831843;
+    border-color: #fce7f3;
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  }
+
   .btn-outline {
     border: 2px solid #db2777;
     color: #db2777;
@@ -107,13 +154,39 @@
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
     transform: translateY(-0.25rem);
   }
+
+  .card-programs {
+    background-color: #ffffff;
+    border: 1px solid rgba(219, 39, 119, 0.12);
+  }
+
+  .card-programs:hover {
+    border-color: rgba(219, 39, 119, 0.25);
+  }
+
+  .section-programs {
+    background-color: #fdf2f8;
+  }
+
+  /* Auth cross-links: high contrast so "Sign in here" / "Join" are visible */
+  .link-signin,
+  .link-auth {
+    color: #be185d;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .link-signin:hover,
+  .link-auth:hover {
+    color: #9d174d;
+  }
   
   .gradient-bg {
-    background: linear-gradient(to bottom right, #ec4899, #0ea5e9, #eab308);
+    background: linear-gradient(to bottom right, #ec4899, #a855f7, #fb923c);
   }
   
   .text-gradient {
-    background: linear-gradient(to right, #db2777, #0284c7);
+    background: linear-gradient(to right, #db2777, #9333ea);
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
@@ -122,5 +195,44 @@
   .hero-pattern {
     background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.1) 1px, transparent 0);
     background-size: 40px 40px;
+  }
+
+  /* Hero: near-black background + maximum contrast text so headline is always readable */
+  .hero-dark {
+    background-color: #1a0510;
+  }
+
+  /* Auth hero (Login/Register/Join): stable layout across viewports */
+  .hero-auth {
+    min-height: 12rem;
+  }
+  .hero-auth-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+  }
+  .hero-auth-content .hero-headline {
+    line-height: 1.2;
+    margin-bottom: 0;
+  }
+  .hero-auth-content .hero-text {
+    margin-top: 0;
+    line-height: 1.5;
+  }
+
+  .hero-headline {
+    color: #ffffff;
+    font-weight: 700;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.5), 0 2px 8px rgba(0,0,0,0.4);
+  }
+  .hero-headline-accent {
+    color: #fce7f3;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.5), 0 2px 8px rgba(0,0,0,0.4);
+  }
+  .hero-text {
+    color: #fce7f3;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
   }
 }

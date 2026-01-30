@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, User, Heart, Users, BookOpen, Dumbbell, LogOut, Settings } from 'lucide-react';
+import { Menu, X, User, Heart, Users, BookOpen, Dumbbell, Share2, LogOut, Settings, MessageCircle } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 
 const Navbar = () => {
@@ -16,6 +16,8 @@ const Navbar = () => {
     { name: 'Programs', path: '/programs', icon: Dumbbell },
     { name: 'Community', path: '/community', icon: Users },
     { name: 'Blog', path: '/blog', icon: BookOpen },
+    { name: 'Social', path: '/social', icon: Share2 },
+    { name: 'Contact', path: '/contact', icon: MessageCircle },
   ];
 
   const isActive = (path) => location.pathname === path;
@@ -32,11 +34,13 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2">
-            <div className="w-10 h-10 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-lg flex items-center justify-center">
-              <Heart className="w-6 h-6 text-white" />
-            </div>
-            <div>
+          <Link to="/" className="flex items-center space-x-3">
+            <img
+              src="/logo.png"
+              alt="The Strong Moms"
+              className="h-12 w-auto object-contain"
+            />
+            <div className="hidden sm:block">
               <h1 className="text-xl font-bold text-gray-900 font-display">
                 The Strong Moms
               </h1>
@@ -126,17 +130,13 @@ const Navbar = () => {
                 </AnimatePresence>
               </div>
             ) : (
-              <>
-                <Link
-                  to="/login"
-                  className="text-gray-700 hover:text-primary-600 font-medium transition-colors duration-200"
-                >
-                  Login
-                </Link>
-                <Link to="/join" className="btn-primary">
-                  Join the Strong Moms
-                </Link>
-              </>
+              <Link
+                to="/login"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg btn-primary text-white no-underline shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-primary-300 focus:ring-offset-2 transition-all duration-200"
+              >
+                <User className="w-4 h-4 shrink-0" />
+                <span>Dashboard</span>
+              </Link>
             )}
           </div>
 
@@ -215,22 +215,14 @@ const Navbar = () => {
                     </button>
                   </>
                 ) : (
-                  <>
-                    <Link
-                      to="/login"
-                      onClick={() => setIsOpen(false)}
-                      className="block text-gray-700 hover:text-primary-600 font-medium transition-colors duration-200"
-                    >
-                      Login
-                    </Link>
-                    <Link
-                      to="/join"
-                      onClick={() => setIsOpen(false)}
-                      className="btn-primary w-full text-center"
-                    >
-                      Join the Strong Moms
-                    </Link>
-                  </>
+                  <Link
+                    to="/login"
+                    onClick={() => setIsOpen(false)}
+                    className="flex items-center space-x-3 px-3 py-2 rounded-md text-base font-medium btn-primary w-full justify-center"
+                  >
+                    <User className="w-5 h-5" />
+                    <span>Dashboard</span>
+                  </Link>
                 )}
               </div>
             </div>

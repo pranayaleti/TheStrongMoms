@@ -66,8 +66,8 @@ const Home = () => {
 
   return (
     <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-primary-600 via-secondary-600 to-accent-500 overflow-hidden">
+      {/* Hero Section - near-black bg + high-contrast text for readability */}
+      <section className="relative hero-dark overflow-hidden">
         <div className="absolute inset-0 hero-pattern opacity-10"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -76,21 +76,26 @@ const Home = () => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <h1 className="text-4xl md:text-6xl font-bold text-white font-display leading-tight mb-6">
+              <img
+                src="/logo.png"
+                alt="The Strong Moms"
+                className="h-14 sm:h-16 md:h-20 w-auto mb-8 object-contain"
+              />
+              <h1 className="hero-headline text-4xl md:text-6xl font-display leading-tight mb-6">
                 For every mom who wants to{' '}
-                <span className="text-accent-300">feel strong again</span>
+                <span className="hero-headline-accent">feel strong again</span>
               </h1>
-              <p className="text-xl text-white/90 mb-8 leading-relaxed">
+              <p className="hero-text text-xl leading-relaxed mb-8 max-w-xl">
                 Join our community of empowered moms who are building strength, confidence, 
                 and lasting friendships through CrossFit, hiking, and mindset coaching.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Link to="/join" className="btn-secondary text-lg px-8 py-4">
+                <Link to="/join" className="btn-cta-dark btn-with-icon text-lg px-8 py-4">
                   Join the Strong Moms
-                  <ArrowRight className="w-5 h-5 ml-2" />
+                  <ArrowRight className="w-5 h-5 shrink-0" aria-hidden />
                 </Link>
-                <button className="btn-outline text-lg px-8 py-4 border-white text-white hover:bg-white hover:text-primary-600">
-                  <Play className="w-5 h-5 mr-2" />
+                <button type="button" className="btn-outline-hero btn-with-icon text-lg px-8 py-4 border-2 border-white text-white hover:bg-white hover:text-primary-950 font-semibold">
+                  <Play className="w-5 h-5 shrink-0" aria-hidden />
                   Watch Our Story
                 </button>
               </div>
@@ -102,28 +107,28 @@ const Home = () => {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="relative"
             >
-              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
+              <div className="bg-black/40 rounded-2xl p-8 border border-white/20 shadow-xl">
                 <div className="text-center">
-                  <h3 className="text-2xl font-bold text-white mb-4">Join Our Community</h3>
+                  <h3 className="hero-headline text-2xl font-bold mb-4">Join Our Community</h3>
                   <div className="grid grid-cols-2 gap-6 mb-6">
                     {stats.map((stat, index) => {
                       const Icon = stat.icon;
                       return (
                         <div key={index} className="text-center">
                           <div className="flex items-center justify-center mb-2">
-                            <Icon className="w-6 h-6 text-accent-300 mr-2" />
-                            <span className="text-2xl font-bold text-white">{stat.number}</span>
+                            <Icon className="w-6 h-6 text-[#fce7f3] mr-2 shrink-0" aria-hidden />
+                            <span className="hero-headline text-2xl font-bold">{stat.number}</span>
                           </div>
-                          <p className="text-sm text-white/80">{stat.label}</p>
+                          <p className="hero-text text-sm font-medium">{stat.label}</p>
                         </div>
                       );
                     })}
                   </div>
                   <div className="flex justify-center space-x-4">
-                    <a href="#" className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition-colors">
+                    <a href="https://instagram.com/TheStrongMoms" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition-colors" aria-label="Instagram">
                       <Instagram className="w-5 h-5 text-white" />
                     </a>
-                    <a href="#" className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition-colors">
+                    <a href="https://facebook.com/TheStrongMoms" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition-colors" aria-label="Facebook">
                       <Facebook className="w-5 h-5 text-white" />
                     </a>
                   </div>
@@ -135,7 +140,7 @@ const Home = () => {
       </section>
 
       {/* Featured Programs */}
-      <section className="py-20 bg-white">
+      <section className="py-20 section-programs">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -160,7 +165,7 @@ const Home = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="card p-6"
+                className="card card-programs p-6"
               >
                 <div className="h-48 bg-gradient-to-br from-primary-100 to-secondary-100 rounded-lg mb-6 flex items-center justify-center">
                   <div className="text-6xl">💪</div>
@@ -235,8 +240,8 @@ const Home = () => {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-primary-600 to-secondary-600">
+      {/* CTA Section - same dark bg as hero for readable buttons */}
+      <section className="py-20 hero-dark">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -244,18 +249,18 @@ const Home = () => {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-4xl font-bold text-white font-display mb-6">
+            <h2 className="hero-headline text-4xl font-bold font-display mb-6">
               Ready to Join the Strong Moms?
             </h2>
-            <p className="text-xl text-white/90 mb-8">
+            <p className="hero-text text-xl mb-8">
               Start your journey to strength, confidence, and community today.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/join" className="btn-secondary text-lg px-8 py-4">
+              <Link to="/join" className="btn-cta-dark btn-with-icon text-lg px-8 py-4">
                 Join Now
-                <ArrowRight className="w-5 h-5 ml-2" />
+                <ArrowRight className="w-5 h-5 shrink-0" aria-hidden />
               </Link>
-              <Link to="/community" className="btn-outline text-lg px-8 py-4 border-white text-white hover:bg-white hover:text-primary-600">
+              <Link to="/community" className="btn-outline-hero text-lg px-8 py-4">
                 Meet the Community
               </Link>
             </div>
