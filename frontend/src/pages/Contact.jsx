@@ -201,10 +201,17 @@ const Contact = () => {
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="inline-flex items-center justify-center gap-2 rounded-lg bg-primary-500 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-offset-2 disabled:opacity-70 transition-colors"
+                      aria-label={isSubmitting ? 'Sending message' : 'Send message'}
+                      className="inline-flex items-center justify-center gap-2 rounded-lg px-6 py-3 text-lg font-bold shadow-md hover:opacity-95 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-offset-2 disabled:opacity-70 transition-colors min-h-[48px]"
+                      style={{
+                        fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+                        color: "#ffffff",
+                        backgroundColor: "#be185d",
+                        textShadow: "0 1px 2px rgba(0,0,0,0.3)",
+                      }}
                     >
-                      <Send className="w-4 h-4" />
-                      {isSubmitting ? 'Sending...' : 'Send message'}
+                      <Send className="w-5 h-5 shrink-0" aria-hidden />
+                      <span>{isSubmitting ? 'Sending...' : 'Send message'}</span>
                     </button>
                   </form>
                 )}

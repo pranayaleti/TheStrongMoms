@@ -1,30 +1,50 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { lazy, Suspense } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { AuthProvider } from './contexts/AuthContext';
+import { PageSEOProvider } from './contexts/PageSEOContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import ScrollToTop from './components/ScrollToTop';
+import SEO from './components/SEO';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import Home from './pages/Home';
-import Programs from './pages/Programs';
-import Community from './pages/Community';
-import Blog from './pages/Blog';
-import BlogPost from './pages/BlogPost';
-import Social from './pages/Social';
-import Join from './pages/Join';
-import Dashboard from './pages/Dashboard';
-import Login from './pages/Login';
-import ForgotPassword from './pages/ForgotPassword';
-import Register from './pages/Register';
-import Contact from './pages/Contact';
+
+const Programs = lazy(() => import('./pages/Programs'));
+const Community = lazy(() => import('./pages/Community'));
+const Blog = lazy(() => import('./pages/Blog'));
+const BlogPost = lazy(() => import('./pages/BlogPost'));
+const Social = lazy(() => import('./pages/Social'));
+const Join = lazy(() => import('./pages/Join'));
+const Dashboard = lazy(() => import('./pages/Dashboard'));
+const Login = lazy(() => import('./pages/Login'));
+const ForgotPassword = lazy(() => import('./pages/ForgotPassword'));
+const Register = lazy(() => import('./pages/Register'));
+const Contact = lazy(() => import('./pages/Contact'));
+const Privacy = lazy(() => import('./pages/Privacy'));
+const Terms = lazy(() => import('./pages/Terms'));
+const Licensing = lazy(() => import('./pages/Licensing'));
+const Accessibility = lazy(() => import('./pages/Accessibility'));
+const SiteMap = lazy(() => import('./pages/SiteMap'));
+
+function RouteFallback() {
+  return (
+    <div className="min-h-[60vh] flex items-center justify-center">
+      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600" aria-hidden />
+    </div>
+  );
+}
 
 function App() {
   return (
     <AuthProvider>
       <Router>
-        <ScrollToTop />
-        <div className="min-h-screen bg-gray-50">
+        <PageSEOProvider>
+          <SEO />
+          <ScrollToTop />
+        <div className="min-h-screen bg-gray-50 overflow-x-hidden max-w-[100vw] min-w-0">
           <Navbar />
+          <Suspense fallback={<RouteFallback />}>
           <AnimatePresence mode="wait">
             <Routes>
               <Route path="/" element={
@@ -149,10 +169,63 @@ function App() {
                   <Contact />
                 </motion.div>
               } />
+              <Route path="/profile" element={<Navigate to="/dashboard" replace />} />
+              <Route path="/privacy" element={
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <Privacy />
+                </motion.div>
+              } />
+              <Route path="/terms" element={
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <Terms />
+                </motion.div>
+              } />
+              <Route path="/licensing" element={
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <Licensing />
+                </motion.div>
+              } />
+              <Route path="/accessibility" element={
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <Accessibility />
+                </motion.div>
+              } />
+              <Route path="/sitemap" element={
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <SiteMap />
+                </motion.div>
+              } />
             </Routes>
           </AnimatePresence>
+          </Suspense>
           <Footer />
         </div>
+        </PageSEOProvider>
       </Router>
     </AuthProvider>
   );

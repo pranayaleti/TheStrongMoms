@@ -3,11 +3,14 @@ import { Link, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Calendar, Clock, User } from 'lucide-react';
 import { blogAPI } from '../services/api';
+import { usePageSEO } from '../contexts/PageSEOContext';
+import { getSiteUrl, getArticleJsonLd } from '../config/seo';
 
 const BlogPost = () => {
   const { id } = useParams();
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
+  const { setMeta } = usePageSEO();
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -23,6 +26,32 @@ const BlogPost = () => {
 
     fetchPost();
   }, [id]);
+
+  useEffect(() => {
+    if (!post) {
+      setMeta(null);
+      return;
+    }
+    const siteUrl = getSiteUrl();
+    const canonical = siteUrl ? `${siteUrl}/blog/${id}` : null;
+    const image = post.image?.startsWith('http') ? post.image : (siteUrl ? `${siteUrl}${post.image || ''}` : post.image);
+    setMeta({
+      title: `${post.title} – The Strong Moms`,
+      description: post.excerpt || post.title,
+      image: image || undefined,
+      canonical,
+      type: 'article',
+      jsonLd: getArticleJsonLd({
+        siteUrl: canonical,
+        title: post.title,
+        description: post.excerpt,
+        image,
+        datePublished: post.publishDate,
+        author: post.author,
+      }),
+    });
+    return () => setMeta(null);
+  }, [post, id, setMeta]);
 
   if (loading) {
     return (
@@ -100,7 +129,9 @@ const BlogPost = () => {
             </div>
 
             <div className="prose max-w-none">
-              <p className="text-gray-700 leading-relaxed">{post.content}</p>
+              <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">
+                {post.content || post.excerpt || 'Content coming soon.'}
+              </p>
             </div>
           </div>
         </div>

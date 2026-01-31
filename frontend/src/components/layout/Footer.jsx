@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Mail, Phone, MapPin } from 'lucide-react';
+import { Mail, Phone, MapPin, Heart, MessageCircle } from 'lucide-react';
 
 // Official brand SVGs (current logos, accessible)
 const IconInstagram = () => (
@@ -53,7 +53,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-gray-900 text-white">
+    <footer className="bg-gray-900 text-white overflow-x-hidden min-w-0">
       {/* Main Footer */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
@@ -168,56 +168,62 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* Feedback Card - small box */}
-      <div className="border-t border-gray-800 px-4 sm:px-6 lg:px-8 pb-8">
-        <div className="max-w-7xl mx-auto flex justify-center">
-          <div className="w-full max-w-md rounded-xl border-2 border-primary-500/80 bg-gray-800/90 px-6 py-5 shadow-lg">
-            <h3 className="text-lg font-bold font-display text-primary-400 mb-1">
-              Got ideas? We're listening!
-            </h3>
-            <p className="text-gray-200 text-sm mb-4">
-              Share feedback to help us build better experiences for our Strong Moms community.
-            </p>
-            <Link
-              to="/contact#feedback"
-              className="inline-flex items-center justify-center rounded-lg bg-primary-500 px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-offset-2 focus:ring-offset-gray-900 transition-colors duration-200"
-            >
-              Share feedback
-            </Link>
-          </div>
+      {/* Feedback - compact inline */}
+      <div className="border-t border-gray-800 px-4 sm:px-6 lg:px-8 py-4">
+        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-center gap-2 text-center">
+          <MessageCircle className="w-4 h-4 text-primary-400 shrink-0" aria-hidden />
+          <span className="text-gray-300 text-sm">Got ideas? We'd love your suggestions.</span>
+          <Link
+            to="/contact#feedback"
+            className="text-primary-400 hover:text-primary-300 text-sm font-medium underline underline-offset-2 transition-colors"
+          >
+            Share feedback
+          </Link>
         </div>
       </div>
 
       {/* Bottom Bar */}
       <div className="border-t border-gray-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="flex flex-col items-center md:items-start space-y-2">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 min-w-0">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4 md:gap-0">
+            <div className="flex flex-col items-center md:items-start space-y-2 min-w-0 max-w-full">
               <p className="text-gray-400 text-sm">
                 © {currentYear} The Strong Moms. All rights reserved.
               </p>
-              <p className="text-gray-400 text-sm">
-                Made with 💛 in Lehi, UT
-              </p>
-              <p className="text-gray-400 text-sm">
-                Designed. Developed. Deployed by{' '}
-                <a
-                  href="https://ondosoft.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-orange-500 hover:text-orange-400 transition-colors duration-200 font-medium"
-                >
-                  OndoSoft
-                </a>
-                .
+              <p className="text-gray-400 text-sm flex flex-wrap items-center justify-center md:justify-start gap-x-1.5 gap-y-1 min-w-0 max-w-full break-words">
+                <span className="inline-flex items-center gap-1">
+                  Made with <Heart className="w-4 h-4 text-[#ff6b9d] fill-[#ff6b9d] shrink-0" aria-hidden /> in Lehi, UT
+                </span>
+                <span className="hidden sm:inline text-gray-500" aria-hidden>·</span>
+                <span>
+                  Designed. Developed. Deployed by{' '}
+                  <a
+                    href="https://ondosoft.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-orange-500 hover:text-orange-400 transition-colors duration-200 font-medium"
+                  >
+                    OndoSoft
+                  </a>
+                  .
+                </span>
               </p>
             </div>
-            <div className="flex space-x-6 mt-4 md:mt-0">
+            <div className="flex flex-wrap items-center justify-center md:justify-end gap-x-6 gap-y-2 mt-4 md:mt-0">
+              <Link to="/licensing" className="text-gray-400 hover:text-primary-400 text-sm transition-colors duration-200">
+                Licensing
+              </Link>
               <Link to="/privacy" className="text-gray-400 hover:text-primary-400 text-sm transition-colors duration-200">
                 Privacy Policy
               </Link>
               <Link to="/terms" className="text-gray-400 hover:text-primary-400 text-sm transition-colors duration-200">
-                Terms of Service
+                Terms of Use
+              </Link>
+              <Link to="/accessibility" className="text-gray-400 hover:text-primary-400 text-sm transition-colors duration-200">
+                Accessibility
+              </Link>
+              <Link to="/sitemap" className="text-gray-400 hover:text-primary-400 text-sm transition-colors duration-200">
+                Site Map
               </Link>
             </div>
           </div>

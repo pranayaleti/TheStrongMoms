@@ -30,15 +30,15 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-white shadow-lg sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+    <nav className="bg-white shadow-lg sticky top-0 z-50 overflow-x-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-w-0">
+        <div className="flex justify-between items-center h-16 min-w-0 gap-2">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-3">
+          <Link to="/" className="flex items-center space-x-2 sm:space-x-3 min-w-0 shrink">
             <img
               src="/logo.png"
               alt="The Strong Moms"
-              className="h-12 w-auto object-contain"
+              className="h-10 sm:h-12 w-auto max-w-[120px] sm:max-w-none object-contain shrink-0"
             />
             <div className="hidden sm:block">
               <h1 className="text-xl font-bold text-gray-900 font-display">

@@ -19,7 +19,7 @@ function useInstagramEmbeds(hasEmbedPosts) {
     }
     const script = document.createElement('script');
     script.async = true;
-    script.src = '//www.instagram.com/embed.js';
+    script.src = 'https://www.instagram.com/embed.js';
     script.onload = () => setTimeout(processEmbeds, 100);
     document.body.appendChild(script);
   }, [hasEmbedPosts]);
@@ -120,7 +120,7 @@ const Social = () => {
                     className="card p-4 flex flex-col items-center"
                   >
                     <blockquote
-                      className="instagram-media w-full min-w-[280px] max-w-[658px]"
+                      className="instagram-media w-full max-w-full min-w-0"
                       data-instgrm-permalink={post.url}
                       data-instgrm-version="14"
                     >

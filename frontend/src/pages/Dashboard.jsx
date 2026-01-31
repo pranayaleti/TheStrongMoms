@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Calendar, Target, Trophy, Users } from 'lucide-react';
+import { ArrowRight, Target, Trophy, Users } from 'lucide-react';
 
 const Dashboard = () => {
   return (

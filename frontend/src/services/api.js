@@ -25,14 +25,17 @@ api.interceptors.request.use(
   }
 );
 
-// Response interceptor to handle errors
+// Response interceptor to handle 401 (clear auth, redirect only if not already on login)
 api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
       localStorage.removeItem('token');
       localStorage.removeItem('user');
-      window.location.href = '/login';
+      const path = window.location.pathname || '';
+      if (!path.startsWith('/login') && !path.startsWith('/forgot-password')) {
+        window.location.href = '/login';
+      }
     }
     return Promise.reject(error);
   }

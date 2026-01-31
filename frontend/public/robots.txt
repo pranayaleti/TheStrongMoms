@@ -1,0 +1,9 @@
+# The Strong Moms – robots.txt for global crawlers (Google, Bing, AI)
+User-agent: *
+Allow: /
+
+# Sitemap (use your production URL; crawlers also accept relative path on same host)
+Sitemap: /sitemap.xml
+
+# Optional: disallow auth/dashboard from indexing (already noindex via meta)
+Disallow: /dashboard

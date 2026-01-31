@@ -276,13 +276,13 @@ const Register = () => {
                 />
                 <span className="ml-2 text-sm text-gray-700">
                   I agree to the{' '}
-                  <a href="#" className="text-primary-600 hover:text-primary-700">
-                    Terms of Service
-                  </a>{' '}
+                  <Link to="/terms" className="text-primary-600 hover:text-primary-700">
+                    Terms of Use
+                  </Link>{' '}
                   and{' '}
-                  <a href="#" className="text-primary-600 hover:text-primary-700">
+                  <Link to="/privacy" className="text-primary-600 hover:text-primary-700">
                     Privacy Policy
-                  </a>
+                  </Link>
                 </span>
               </div>
               {formErrors.agreeToTerms && (

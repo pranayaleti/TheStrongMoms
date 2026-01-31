@@ -94,7 +94,7 @@ const Home = () => {
                   Join the Strong Moms
                   <ArrowRight className="w-5 h-5 shrink-0" aria-hidden />
                 </Link>
-                <button type="button" className="btn-outline-hero btn-with-icon text-lg px-8 py-4 border-2 border-white text-white hover:bg-white hover:text-primary-950 font-semibold">
+                <button type="button" className="btn-cta-dark btn-with-icon text-lg px-8 py-4">
                   <Play className="w-5 h-5 shrink-0" aria-hidden />
                   Watch Our Story
                 </button>
