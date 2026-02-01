@@ -30,7 +30,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-white shadow-lg sticky top-0 z-50 overflow-x-hidden">
+    <nav className="bg-white shadow-lg fixed top-0 left-0 right-0 z-50 overflow-x-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-w-0">
         <div className="flex justify-between items-center h-16 min-w-0 gap-2">
           {/* Logo */}
@@ -49,17 +49,19 @@ const Navbar = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-2">
             {navItems.map((item) => {
               const Icon = item.icon;
+              const active = isActive(item.path);
               return (
                 <Link
                   key={item.name}
                   to={item.path}
-                  className={`flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 ${
-                    isActive(item.path)
-                      ? 'text-primary-600 bg-primary-50'
-                      : 'text-gray-700 hover:text-primary-600 hover:bg-primary-50'
+                  aria-current={active ? 'page' : undefined}
+                  className={`flex items-center space-x-1.5 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${
+                    active
+                      ? 'bg-pink-500 text-white shadow-md hover:bg-pink-600'
+                      : 'text-gray-700 hover:bg-pink-100 hover:text-pink-700'
                   }`}
                 >
                   <Icon className="w-4 h-4" />
@@ -70,10 +72,11 @@ const Navbar = () => {
             {isAuthenticated && (
               <Link
                 to="/dashboard"
-                className={`flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 ${
+                aria-current={isActive('/dashboard') ? 'page' : undefined}
+                className={`flex items-center space-x-1.5 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${
                   isActive('/dashboard')
-                    ? 'text-primary-600 bg-primary-50'
-                    : 'text-gray-700 hover:text-primary-600 hover:bg-primary-50'
+                    ? 'bg-pink-500 text-white shadow-md hover:bg-pink-600'
+                    : 'text-gray-700 hover:bg-pink-100 hover:text-pink-700'
                 }`}
               >
                 <User className="w-4 h-4" />
@@ -162,18 +165,20 @@ const Navbar = () => {
             transition={{ duration: 0.3 }}
             className="md:hidden bg-white border-t border-gray-200"
           >
-            <div className="px-4 py-6 space-y-4">
+            <div className="px-4 py-6 space-y-2">
               {navItems.map((item) => {
                 const Icon = item.icon;
+                const active = isActive(item.path);
                 return (
                   <Link
                     key={item.name}
                     to={item.path}
                     onClick={() => setIsOpen(false)}
-                    className={`flex items-center space-x-3 px-3 py-2 rounded-md text-base font-medium transition-all duration-200 ${
-                      isActive(item.path)
-                        ? 'text-primary-600 bg-primary-50'
-                        : 'text-gray-700 hover:text-primary-600 hover:bg-primary-50'
+                    aria-current={active ? 'page' : undefined}
+                    className={`flex items-center space-x-3 px-4 py-3 rounded-lg text-base font-medium transition-all duration-200 ${
+                      active
+                        ? 'bg-pink-500 text-white shadow-md'
+                        : 'text-gray-700 hover:bg-pink-100 hover:text-pink-700'
                     }`}
                   >
                     <Icon className="w-5 h-5" />
@@ -185,10 +190,11 @@ const Navbar = () => {
                 <Link
                   to="/dashboard"
                   onClick={() => setIsOpen(false)}
-                  className={`flex items-center space-x-3 px-3 py-2 rounded-md text-base font-medium transition-all duration-200 ${
+                  aria-current={isActive('/dashboard') ? 'page' : undefined}
+                  className={`flex items-center space-x-3 px-4 py-3 rounded-lg text-base font-medium transition-all duration-200 ${
                     isActive('/dashboard')
-                      ? 'text-primary-600 bg-primary-50'
-                      : 'text-gray-700 hover:text-primary-600 hover:bg-primary-50'
+                      ? 'bg-pink-500 text-white shadow-md'
+                      : 'text-gray-700 hover:bg-pink-100 hover:text-pink-700'
                   }`}
                 >
                   <User className="w-5 h-5" />

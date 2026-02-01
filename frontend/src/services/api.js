@@ -73,6 +73,7 @@ export const communityAPI = {
 export const blogAPI = {
   getAll: () => api.get('/blog'),
   getById: (id) => api.get(`/blog/${id}`),
+  getRelated: (id) => api.get(`/blog/${id}/related`),
   getCategories: () => api.get('/blog/categories'),
 };
 

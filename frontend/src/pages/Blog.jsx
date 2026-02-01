@@ -7,6 +7,7 @@ import { blogAPI } from '../services/api';
 const Blog = () => {
   const [blogPosts, setBlogPosts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [imageErrors, setImageErrors] = useState({});
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -91,48 +92,54 @@ const Blog = () => {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {blogPosts.map((post, index) => (
-                <motion.div
+                <Link
                   key={post.id}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  className="card overflow-hidden"
+                  to={`/blog/${post.id}`}
+                  className="block group"
                 >
-                  <div className="h-48 overflow-hidden bg-gray-200">
-                    {post.image ? (
-                      <img
-                        src={post.image}
-                        alt=""
-                        className="h-full w-full object-cover"
-                      />
-                    ) : (
-                      <div className="h-full w-full bg-gradient-to-br from-primary-100 to-secondary-100 flex items-center justify-center">
-                        <span className="text-4xl">📝</span>
-                      </div>
-                    )}
-                  </div>
-                  <div className="p-6">
-                    <div className="flex items-center text-sm text-gray-500 mb-3">
-                      <Calendar className="w-4 h-4 mr-1" />
-                      {post.publishDate}
-                      <Clock className="w-4 h-4 ml-3 mr-1" />
-                      {post.readTime}
+                  <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: index * 0.1 }}
+                    viewport={{ once: true }}
+                    className="card overflow-hidden h-full hover:shadow-lg transition-shadow duration-200"
+                  >
+                    <div className="h-48 overflow-hidden bg-gray-200">
+                      {post.image && !imageErrors[post.id] ? (
+                        <img
+                          src={post.image}
+                          alt=""
+                          className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
+                          onError={() => setImageErrors((prev) => ({ ...prev, [post.id]: true }))}
+                        />
+                      ) : (
+                        <div className="h-full w-full bg-gradient-to-br from-primary-100 to-secondary-100 flex items-center justify-center">
+                          <span className="text-4xl">📝</span>
+                        </div>
+                      )}
                     </div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-2">{post.title}</h3>
-                    <p className="text-gray-600 mb-4">{post.excerpt}</p>
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center text-sm text-gray-500">
-                        <User className="w-4 h-4 mr-1" />
-                        {post.author}
+                    <div className="p-6">
+                      <div className="flex items-center text-sm text-gray-500 mb-3">
+                        <Calendar className="w-4 h-4 mr-1" />
+                        {post.publishDate}
+                        <Clock className="w-4 h-4 ml-3 mr-1" />
+                        {post.readTime}
                       </div>
-                      <Link to={`/blog/${post.id}`} className="btn-with-icon text-primary-600 hover:text-primary-700 font-medium">
-                        Read More
-                        <ArrowRight className="w-4 h-4 shrink-0" aria-hidden />
-                      </Link>
+                      <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-primary-600 transition-colors">{post.title}</h3>
+                      <p className="text-gray-600 mb-4">{post.excerpt}</p>
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center text-sm text-gray-500">
+                          <User className="w-4 h-4 mr-1" />
+                          {post.author}
+                        </div>
+                        <span className="btn-with-icon text-primary-600 group-hover:text-primary-700 font-medium">
+                          Read More
+                          <ArrowRight className="w-4 h-4 shrink-0" aria-hidden />
+                        </span>
+                      </div>
                     </div>
-                  </div>
-                </motion.div>
+                  </motion.div>
+                </Link>
               ))}
             </div>
           )}

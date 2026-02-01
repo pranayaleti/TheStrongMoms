@@ -176,14 +176,14 @@ const Programs = () => {
                 <button
                   key={category.id}
                   onClick={() => setSelectedCategory(category.id)}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+                  className={`px-4 py-2.5 rounded-full text-base font-semibold transition-all duration-200 ${
                     selectedCategory === category.id
-                      ? 'bg-primary-600 text-white'
+                      ? 'bg-gray-900 text-white shadow-md'
                       : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
                   }`}
                 >
-                  <span className="mr-2">{category.icon}</span>
-                  {category.name}
+                  <span className="mr-2" aria-hidden>{category.icon}</span>
+                  <span>{category.name}</span>
                 </button>
               ))}
             </div>
@@ -218,7 +218,16 @@ const Programs = () => {
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
-                  className="card overflow-hidden"
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => handleBookProgram(program.id)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      handleBookProgram(program.id);
+                    }
+                  }}
+                  className="card overflow-hidden cursor-pointer hover:shadow-lg transition-shadow duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
                 >
                   {/* Program Image */}
                   <div className="h-48 bg-gradient-to-br from-primary-100 to-secondary-100 flex items-center justify-center">
@@ -281,14 +290,10 @@ const Programs = () => {
                         <span className="text-2xl font-bold text-gray-900">${program.price}</span>
                         <span className="text-sm text-gray-500 ml-1">/ {program.duration}</span>
                       </div>
-                      <button
-                        type="button"
-                        onClick={() => handleBookProgram(program.id)}
-                        className="btn-primary btn-with-icon"
-                      >
+                      <span className="btn-primary btn-with-icon inline-flex">
                         Book Now
                         <ArrowRight className="w-4 h-4 shrink-0" aria-hidden />
-                      </button>
+                      </span>
                     </div>
                   </div>
                 </motion.div>

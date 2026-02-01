@@ -44,6 +44,7 @@ function App() {
           <ScrollToTop />
         <div className="min-h-screen bg-gray-50 overflow-x-hidden max-w-[100vw] min-w-0">
           <Navbar />
+          <main className="pt-16">
           <Suspense fallback={<RouteFallback />}>
           <AnimatePresence mode="wait">
             <Routes>
@@ -224,6 +225,7 @@ function App() {
           </AnimatePresence>
           </Suspense>
           <Footer />
+          </main>
         </div>
         </PageSEOProvider>
       </Router>

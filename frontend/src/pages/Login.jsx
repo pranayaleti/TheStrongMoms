@@ -168,7 +168,7 @@ const Login = () => {
               </p>
               <Link
                 to="/join"
-                className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 rounded-lg border-2 border-primary-500 text-primary-600 font-semibold no-underline transition-all duration-200 hover:bg-primary-600 hover:border-primary-600 hover:text-white hover:shadow-md hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+                className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 rounded-lg border-2 border-primary-600 bg-primary-50 text-gray-900 font-semibold no-underline transition-all duration-200 hover:bg-primary-700 hover:border-primary-700 hover:text-white hover:shadow-md hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
               >
                 Join the Strong Moms
               </Link>

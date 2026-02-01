@@ -31,7 +31,7 @@ const IconPinterest = () => (
 const socialLinks = [
   { href: 'https://instagram.com/TheStrongMoms', label: 'Instagram', Icon: IconInstagram, hoverClass: 'hover:bg-[#E4405F] hover:border-[#E4405F]' },
   { href: 'https://facebook.com/TheStrongMoms', label: 'Facebook', Icon: IconFacebook, hoverClass: 'hover:bg-[#1877F2] hover:border-[#1877F2]' },
-  { href: 'https://tiktok.com/@TheStrongMamas', label: 'TikTok', Icon: IconTikTok, hoverClass: 'hover:bg-[#000000] hover:border-[#00f2ea] hover:text-[#00f2ea]' },
+  { href: 'https://tiktok.com/@thestrong_moms', label: 'TikTok', Icon: IconTikTok, hoverClass: 'hover:bg-[#000000] hover:border-[#00f2ea] hover:text-[#00f2ea]' },
   { href: 'https://youtube.com/@TheStrongMoms', label: 'YouTube', Icon: IconYouTube, hoverClass: 'hover:bg-[#FF0000] hover:border-[#FF0000]' },
   { href: 'https://pinterest.com/TheStrongMoms', label: 'Pinterest', Icon: IconPinterest, hoverClass: 'hover:bg-[#BD081C] hover:border-[#BD081C]' },
 ];
@@ -174,7 +174,7 @@ const Footer = () => {
           <MessageCircle className="w-4 h-4 text-primary-400 shrink-0" aria-hidden />
           <span className="text-gray-300 text-sm">Got ideas? We'd love your suggestions.</span>
           <Link
-            to="/contact#feedback"
+            to="/contact"
             className="text-primary-400 hover:text-primary-300 text-sm font-medium underline underline-offset-2 transition-colors"
           >
             Share feedback
