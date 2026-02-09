@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Calendar, Clock, User, Eye, Heart, Tag, ArrowRight } from 'lucide-react';
 import { blogAPI } from '../services/api';
+import { getStaticPostById, getStaticRelatedPosts } from '../data/blogPosts';
 import { usePageSEO } from '../contexts/PageSEOContext';
 import { getSiteUrl, getArticleJsonLd } from '../config/seo';
 
@@ -18,8 +19,9 @@ const BlogPost = () => {
       try {
         const response = await blogAPI.getById(id);
         setPost(response.data.post);
-      } catch (error) {
-        setPost(null);
+      } catch {
+        const staticPost = getStaticPostById(id);
+        setPost(staticPost ?? null);
       } finally {
         setLoading(false);
       }
@@ -35,7 +37,7 @@ const BlogPost = () => {
         const response = await blogAPI.getRelated(id);
         setRelatedPosts(response.data.relatedPosts || []);
       } catch {
-        setRelatedPosts([]);
+        setRelatedPosts(getStaticRelatedPosts(id));
       }
     };
     fetchRelated();

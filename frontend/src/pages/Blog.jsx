@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Calendar, Clock, User } from 'lucide-react';
 import { blogAPI } from '../services/api';
+import { staticBlogPosts } from '../data/blogPosts';
 
 const Blog = () => {
   const [blogPosts, setBlogPosts] = useState([]);
@@ -14,39 +15,8 @@ const Blog = () => {
       try {
         const response = await blogAPI.getAll();
         setBlogPosts(response.data.posts || []);
-      } catch (error) {
-        setBlogPosts([
-          {
-            id: 1,
-            title: "Postpartum Recovery: Your Complete Guide to Getting Strong Again",
-            excerpt: "Everything you need to know about safely returning to fitness after having a baby.",
-            author: "Dr. Sarah Johnson",
-            publishDate: "2024-03-15",
-            readTime: "8 min read",
-            category: "postpartum",
-            image: "https://images.unsplash.com/photo-1518611012118-696076aa7340?w=800&q=80"
-          },
-          {
-            id: 2,
-            title: "5 CrossFit Workouts You Can Do at Home (No Equipment Needed!)",
-            excerpt: "Transform your living room into a CrossFit box with these effective, equipment-free workouts.",
-            author: "Coach Jessica",
-            publishDate: "2024-03-12",
-            readTime: "6 min read",
-            category: "workouts",
-            image: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800&q=80"
-          },
-          {
-            id: 3,
-            title: "Mindset Monday: How to Overcome the 'I'm Too Tired' Excuse",
-            excerpt: "Practical strategies for pushing through fatigue and finding your motivation.",
-            author: "Mindset Coach Amanda",
-            publishDate: "2024-03-11",
-            readTime: "5 min read",
-            category: "mindset",
-            image: "https://images.unsplash.com/photo-1506126613408-eca67ce72576?w=800&q=80"
-          }
-        ]);
+      } catch {
+        setBlogPosts(staticBlogPosts);
       } finally {
         setLoading(false);
       }
